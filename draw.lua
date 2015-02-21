@@ -10,7 +10,7 @@ function love.draw()
 		end
 	end
 	
-	drawGrid()
+	draw_grid()
 
 	for i = 1, #particles do
 		p = particles[i]
@@ -34,7 +34,7 @@ function love.draw()
 			end
 		end
 	end
-	resetShadedQueue()
+	reset_shaded_queue()
 	--[[
 	love.graphics.setColor(255,0,0,100)
 
@@ -44,7 +44,7 @@ function love.draw()
 	end]]--
 end
 
-function drawGrid()
+function draw_grid()
 	love.graphics.setColor(255,255,255,25)
 
 	for i = 1, _x/32 do

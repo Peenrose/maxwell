@@ -5,7 +5,7 @@ function quad_locate(x, y)
 	return rx, ry
 end
 
-function newRand(type)
+function new_rand(type)
 	if (type == nil) then return nil
 		elseif (type == "x") then return math.random(5, love.graphics.getWidth()-5)
 		elseif (type == "y") then return math.random(5, love.graphics.getHeight()-5)

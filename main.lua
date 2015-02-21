@@ -8,38 +8,41 @@ require "keys"
 
 require "util"
 
+collision_check_quads = {}
+function reset_collision_quads()
+	for i = 1, #particles do collision_check_quads[i] = {} end
+end
+reset_collision_quads()
 
-function checkCollisions()
-	-- generate list of particles and the quads that they can collide in
-	-- 
 
-	--[[ 
-
-	for each particle
-		find which quads it intersects with this frame
-	end
-
-	for each particle
-		search other particles in the nearest 9 quads
-
-		process collisions
-	end
-
+function check_collisions()
 
 	for i = 1, #particles do
-		p2 = particles[i]
+		qx, qy = quad_locate(p.pos.x, p.pos.y)
 
-		if (p1 ~= p2) then
-			if (distance(p1, p2) < particle_size) then
-				_p1 = p1; _p2 = p2
+		-- check that they exist
 
-				p1.vel.x = _p2.vel.x
-				p1.vel.y = _p2.vel.y
-				p2.vel.x = _p1.vel.x
-				p2.vel.y = _p1.vel.y
+		collision_check_quads = {qx, qy}
+	end
+	--[[ 
+	reverse list to find all particles in each quad
+
+	for each particle
+		check all particles that are in it's collision quads
+
+		if collision
+			if (p1 ~= p2) then
+				if (distance(p1, p2) < particle_size) then
+					_p1 = p1; _p2 = p2
+
+					p1.vel.x = _p2.vel.x
+					p1.vel.y = _p2.vel.y
+					p2.vel.x = _p1.vel.x
+					p2.vel.y = _p1.vel.y
+				end
 			end
 		end
-	end 
+	end
 	--]]
 end
 
@@ -79,13 +82,13 @@ function love.update(dt)
 		pc.pos.y = pc.pos.y + (pc.vel.y*dt)
 	end
 
-	checkCollisions()
+	--check_collisions()
 end
 
 
 
 shaded_next_frame = {}
-function resetShadedQueue()
+function reset_shaded_queue()
 	for i = 1, 32 do
 		shaded_next_frame[i] = {}
 		for k = 1, 18 do
@@ -93,7 +96,7 @@ function resetShadedQueue()
 		end
 	end
 end
-resetShadedQueue()
+reset_shaded_queue()
 
 function schedule_shade(qx, qy)
 	if qx < 1 then return end

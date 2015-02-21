@@ -3,11 +3,10 @@ particle_size = 2
 
 time_warp = 1
 
-particles = {}
-
 _x = 1280
 _y = 720
 
+particles = {}
 function love.load()
 	love.window.setMode(_x, _y, {
 		fullscreen=false, 
@@ -18,8 +17,8 @@ function love.load()
 
 	for i = 1, particle_count do
 		particles[i] = {
-			pos = { x = newRand("x"), y = newRand("y") },
-			vel = { x = newRand("v"), y = newRand("v") }
+			pos = { x = new_rand("x"), y = new_rand("y") },
+			vel = { x = new_rand("v"), y = new_rand("v") }
 		}
 	end
 end
