@@ -1,4 +1,4 @@
-#Maxwell's Daemon Particle Simulator
+#Simon's Particle Simulator
 
 dun dun dun.
 
