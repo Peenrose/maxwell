@@ -1,42 +1,31 @@
 -- Maxwell's Daemon Simulation
 
-particle_count = 1000
-particle_size = 2
-
-time_warp = 1
-
-particles = {}
-
-_x = 1280
-_y = 720
-
 require "draw"
 
 require "load"
 
 require "keys"
 
+require "util"
 
-function newRand(type)
-	if (type == nil) then return nil
-		elseif (type == "x") then return math.random(5, love.graphics.getWidth()-5)
-		elseif (type == "y") then return math.random(5, love.graphics.getHeight()-5)
-		elseif (type == "v") then return math.random(-1000, 1000) / 15 
-	end
-end
-
-
-dist = 0
-function distance(p1, p2)
-	dist = dist + 1
-	return math.sqrt( (p1.pos.x - p2.pos.x)^2 + (p1.pos.y - p2.pos.y)^2 )
-end
 
 function checkCollisions()
-	-- split into grid
-	-- only check particles in grid
+	-- generate list of particles and the quads that they can collide in
+	-- 
 
 	--[[ 
+
+	for each particle
+		find which quads it intersects with this frame
+	end
+
+	for each particle
+		search other particles in the nearest 9 quads
+
+		process collisions
+	end
+
+
 	for i = 1, #particles do
 		p2 = particles[i]
 
@@ -93,12 +82,7 @@ function love.update(dt)
 	checkCollisions()
 end
 
-function quad_locate(x, y)
-	rx = math.ceil((x/_x)*32)
-	ry = math.ceil((y/_y)*18)
 
-	return rx, ry
-end
 
 shaded_next_frame = {}
 function resetShadedQueue()
